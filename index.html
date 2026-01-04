@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>មានទាំងអស់នៅនៀក - By Hun Samnang</title>
+    <title>Khmer Tools - By Hun Samnang</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;600;700&family=Moul&display=swap" rel="stylesheet">
+    <!-- Fonts: Battambang (Body) & Moul (Header) -->
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Moul&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -19,13 +19,12 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Kantumruy Pro"', 'sans-serif'],
+                        sans: ['"Battambang"', 'sans-serif'],
                         header: ['"Moul"', 'cursive'],
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'fade-in': 'fadeIn 0.8s ease-out forwards',
-                        'pop-in': 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
                     },
                     keyframes: {
                         float: {
@@ -35,11 +34,11 @@
                         fadeIn: {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        popIn: {
-                            '0%': { transform: 'scale(0.8)', opacity: '0' },
-                            '100%': { transform: 'scale(1)', opacity: '1' },
                         }
+                    },
+                    colors: {
+                        darkBg: '#0f172a',
+                        darkCard: '#1e293b',
                     }
                 }
             }
@@ -47,10 +46,17 @@
     </script>
     <style>
         body { 
-            font-family: 'Kantumruy Pro', sans-serif; 
+            font-family: 'Battambang', sans-serif; 
             background-color: #F8FAFC;
             background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
             background-size: 24px 24px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark body {
+            background-color: #0f172a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            color: #f8fafc;
         }
         
         .tool-card {
@@ -59,6 +65,12 @@
             border: 1px solid #e2e8f0;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
+            position: relative;
+        }
+
+        .dark .tool-card {
+            background: #1e293b;
+            border-color: #334155;
         }
         
         .tool-card:hover {
@@ -73,71 +85,64 @@
             position: relative;
             background-color: #f1f5f9;
         }
+        .dark .card-image-wrapper {
+            background-color: #0f172a;
+        }
         
         .card-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: cover;
             transition: transform 0.5s ease;
         }
         
-        .tool-card:hover .card-image {
-            transform: scale(1.05);
-        }
+        .tool-card:hover .card-image { transform: scale(1.05); }
 
         .image-overlay {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 50%;
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
             background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
         }
 
-        /* Modal Styles */
+        /* Modal */
         .modal {
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+            position: fixed; inset: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px);
         }
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal.active { opacity: 1; visibility: visible; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col text-slate-800 dark:text-slate-200 transition-colors duration-300">
 
     <!-- Navbar -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-darkBg/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="bg-blue-600 p-2 rounded-xl text-white shadow-lg shadow-blue-200">
+                <div class="bg-blue-600 p-2 rounded-xl text-white shadow-lg">
                     <i data-lucide="layout-grid" class="w-6 h-6"></i>
                 </div>
-                <h1 class="text-xl font-header text-slate-800 pt-1">មានទាំងអស់<span class="text-blue-600">នៅនៀក</span></h1>
+                <h1 class="text-lg md:text-xl font-header text-slate-800 dark:text-white pt-1">មានទាំងអស់<span class="text-blue-500">នៅនៀក</span></h1>
             </div>
             
-            <button onclick="openWelcomeModal()" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-600 px-4 py-2 rounded-full text-xs font-bold transition">
-                <i data-lucide="info" class="w-4 h-4"></i> ណែនាំ
-            </button>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-yellow-400">
+                    <i id="theme-icon" data-lucide="moon" class="w-4 h-4"></i>
+                </button>
+                <button onclick="openWelcomeModal()" class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 px-4 py-2 rounded-full text-xs font-bold transition border border-slate-200 dark:border-slate-700">
+                    <i data-lucide="info" class="w-4 h-4"></i> ណែនាំ
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- Hero -->
     <header class="pt-16 pb-12 text-center px-4">
-        <div class="inline-block p-1 px-3 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-bold mb-4 animate-fade-in">
+        <div class="inline-block p-1 px-3 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 text-blue-600 dark:text-blue-400 text-xs font-bold mb-4 animate-fade-in">
             🚀 Developed by Hun Samnang
         </div>
-        <h1 class="text-4xl md:text-5xl font-header text-slate-900 mb-4 animate-fade-in" style="animation-delay: 0.1s;">
+        <h1 class="text-3xl md:text-5xl font-header text-slate-900 dark:text-white mb-4 animate-fade-in leading-relaxed" style="animation-delay: 0.1s;">
             ឧបករណ៍ឌីជីថល
         </h1>
-        <p class="text-slate-500 max-w-xl mx-auto text-lg leading-relaxed animate-fade-in" style="animation-delay: 0.2s;">
+        <p class="text-slate-500 dark:text-slate-400 max-w-xl mx-auto text-base md:text-lg leading-relaxed animate-fade-in" style="animation-delay: 0.2s;">
             ប្រមូលផ្តុំកម្មវិធីដែលមានប្រយោជន៍សម្រាប់ជួយសម្រួលការងារប្រចាំថ្ងៃរបស់អ្នក
         </p>
     </header>
@@ -149,29 +154,19 @@
             <!-- 1. Salary Calculator V2 -->
             <a href="https://hunsamnang423.github.io/salary-calculatorV2/" target="_blank" class="tool-card group animate-fade-in" style="animation-delay: 0.3s;">
                 <div class="card-image-wrapper">
-                    <!-- ⚠️ រូប Salary: salary.jpg -->
-                    <img src="./salary.jpg" 
-                         onerror="this.src='https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800'" 
-                         alt="Salary Calc" 
-                         class="card-image">
+                    <img src="./salary.jpg" onerror="this.src='https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800'" class="card-image">
                     <div class="image-overlay"></div>
-                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-green-700 shadow-sm">
-                        Finance
-                    </div>
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-green-700 shadow-sm">Finance</div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-3 mb-3">
-                        <div class="p-2 bg-green-100 rounded-lg text-green-600">
-                            <i data-lucide="banknote" class="w-5 h-5"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-800">គណនាប្រាក់ខែសរុប</h3>
+                        <div class="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg text-green-600 dark:text-green-400"><i data-lucide="banknote" class="w-5 h-5"></i></div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white">គណនាប្រាក់ខែសរុប</h3>
                     </div>
-                    <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">
-                        គណនាប្រាក់ខែ និងចំណូលចំណាយប្រចាំខែ រួមទាំងការកត់ត្រាផ្សេងៗ
-                    </p>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-                        <span class="text-xs font-medium text-slate-400">Version 5.0</span>
-                        <span class="flex items-center gap-1 text-green-600 text-sm font-bold group-hover:gap-2 transition-all">
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 line-clamp-2 leading-relaxed">គណនាប្រាក់ខែ និងចំណូលចំណាយ</p>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <span class="text-xs font-medium text-slate-400 dark:text-slate-500">V 5.0</span>
+                        <span class="flex items-center gap-1 text-green-600 dark:text-green-400 text-sm font-bold group-hover:gap-2 transition-all">
                             បើកកម្មវិធី <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </span>
                     </div>
@@ -181,29 +176,19 @@
             <!-- 2. OT Summary -->
             <a href="https://hunsamnang423.github.io/OTSUMARY/" target="_blank" class="tool-card group animate-fade-in" style="animation-delay: 0.4s;">
                 <div class="card-image-wrapper">
-                    <!-- ⚠️ រូប OT: ot.jpg -->
-                    <img src="./ot.jpg" 
-                         onerror="this.src='https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=800'" 
-                         alt="OT Summary" 
-                         class="card-image">
+                    <img src="./ot.jpg" onerror="this.src='https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=800'" class="card-image">
                     <div class="image-overlay"></div>
-                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-orange-600 shadow-sm">
-                        Productivity
-                    </div>
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-orange-600 shadow-sm">Productivity</div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-3 mb-3">
-                        <div class="p-2 bg-orange-100 rounded-lg text-orange-500">
-                            <i data-lucide="clock" class="w-5 h-5"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-800">បូកសរុបម៉ោងOT</h3>
+                        <div class="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg text-orange-500 dark:text-orange-400"><i data-lucide="clock" class="w-5 h-5"></i></div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white">បូកសរុបម៉ោងបន្ថែម</h3>
                     </div>
-                    <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">
-                        បូកសរុបម៉ោងបន្ថែម (OT) និងគណនាលុយបាយដោយស្វ័យប្រវត្តិ
-                    </p>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-                        <span class="text-xs font-medium text-slate-400">Utility</span>
-                        <span class="flex items-center gap-1 text-orange-500 text-sm font-bold group-hover:gap-2 transition-all">
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 line-clamp-2 leading-relaxed">បូកសរុបម៉ោងបន្ថែម (OT) និងគណនាលុយបាយសរុបប្រាំខែ</p>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <span class="text-xs font-medium text-slate-400 dark:text-slate-500">Utility</span>
+                        <span class="flex items-center gap-1 text-orange-500 dark:text-orange-400 text-sm font-bold group-hover:gap-2 transition-all">
                             បើកកម្មវិធី <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </span>
                     </div>
@@ -213,135 +198,146 @@
             <!-- 3. Image Splitter -->
             <a href="https://hunsamnang423.github.io/ImageSplitter/" target="_blank" class="tool-card group animate-fade-in" style="animation-delay: 0.5s;">
                 <div class="card-image-wrapper">
-                    <!-- ⚠️ រូប Split: split.jpg -->
-                    <img src="./split.jpg" 
-                         onerror="this.src='https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800'" 
-                         alt="Image Splitter" 
-                         class="card-image">
+                    <img src="./split.jpg" onerror="this.src='https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800'" class="card-image">
                     <div class="image-overlay"></div>
-                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-purple-600 shadow-sm">
-                        Design Tool
-                    </div>
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-purple-600 shadow-sm">Design</div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-3 mb-3">
-                        <div class="p-2 bg-purple-100 rounded-lg text-purple-600">
-                            <i data-lucide="scissors" class="w-5 h-5"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-800">កាត់រូបភាព</h3>
+                        <div class="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg text-purple-600 dark:text-purple-400"><i data-lucide="scissors" class="w-5 h-5"></i></div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white">កាត់រូបភាព</h3>
                     </div>
-                    <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">
-                        កាត់រូបភាពធំៗទៅជារូបតូចៗ (Grid) សម្រាប់បង្ហោះលើបណ្តាញសង្គម។
-                    </p>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-                        <span class="text-xs font-medium text-slate-400">v2.0</span>
-                        <span class="flex items-center gap-1 text-purple-600 text-sm font-bold group-hover:gap-2 transition-all">
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 line-clamp-2 leading-relaxed">កាត់រូបភាពធំៗទៅជារូបតូចៗ (Grid)។</p>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <span class="text-xs font-medium text-slate-400 dark:text-slate-500">v2.0</span>
+                        <span class="flex items-center gap-1 text-purple-600 dark:text-purple-400 text-sm font-bold group-hover:gap-2 transition-all">
                             បើកកម្មវិធី <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </span>
                     </div>
                 </div>
             </a>
 
+            <!-- 4. Game Top Up -->
+            <a href="./topup/index.html" target="_blank" class="tool-card group animate-fade-in" style="animation-delay: 0.6s;">
+                <div class="card-image-wrapper">
+                    <img src="./topup.jpg" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800'" class="card-image">
+                    <div class="image-overlay"></div>
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-rose-600 shadow-sm">នឹងមកដល់ឆាប់ៗនេះ</div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-rose-100 dark:bg-rose-900/30 rounded-lg text-rose-600 dark:text-rose-400"><i data-lucide="gamepad-2" class="w-5 h-5"></i></div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white">Game Top Up</h3>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 line-clamp-2 leading-relaxed">បញ្ចូលលុយហ្គេម Mobile Legends & PUBG...</p>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <span class="text-xs font-medium text-slate-400 dark:text-slate-500">Service</span>
+                        <span class="flex items-center gap-1 text-rose-600 dark:text-rose-400 text-sm font-bold group-hover:gap-2 transition-all">
+                            ចូលមើល <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 5. KhmerSaver -->
+            <a href="./khmersaver/index.html" target="_blank" class="tool-card group animate-fade-in" style="animation-delay: 0.7s;">
+                <div class="card-image-wrapper">
+                    <img src="./saver.jpg" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800'" class="card-image">
+                    <div class="image-overlay"></div>
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-cyan-600 shadow-sm">ឆាប់ៗនេះ</div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-cyan-100 dark:bg-cyan-900/30 rounded-lg text-cyan-600 dark:text-cyan-400"><i data-lucide="download-cloud" class="w-5 h-5"></i></div>
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white">ខ្មែរដោនឡូត</h3>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 line-clamp-2 leading-relaxed">Download Video & MP3 ពីបណ្តាញសង្គម</p>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <span class="text-xs font-medium text-slate-400 dark:text-slate-500">Tool</span>
+                        <span class="flex items-center gap-1 text-cyan-600 dark:text-cyan-400 text-sm font-bold group-hover:gap-2 transition-all">
+                            ប្រើប្រាស់<i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+
              <!-- Coming Soon -->
-             <div class="tool-card border-2 border-dashed border-slate-200 bg-slate-50/50 p-6 flex flex-col items-center justify-center text-center opacity-70 hover:opacity-100 transition animate-fade-in" style="animation-delay: 0.6s;">
-                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-slate-300 mb-4 shadow-sm">
+             <div class="tool-card border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/30 p-6 flex flex-col items-center justify-center text-center opacity-70 hover:opacity-100 transition animate-fade-in" style="animation-delay: 0.8s;">
+                <div class="w-16 h-16 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center text-slate-300 dark:text-slate-500 mb-4 shadow-sm border border-slate-100 dark:border-slate-600">
                     <i data-lucide="plus" class="w-8 h-8"></i>
                 </div>
-                <h3 class="text-lg font-bold text-slate-400 mb-2">Coming Soon</h3>
-                <p class="text-xs text-slate-400">នឹងមានកម្មវិធីថ្មីៗបន្ថែមទៀត</p>
+                <h3 class="text-lg font-bold text-slate-400 dark:text-slate-300 mb-2">Coming Soon</h3>
+                <p class="text-xs text-slate-400 dark:text-slate-500">នឹងមានកម្មវិធីថ្មីៗបន្ថែមទៀត</p>
             </div>
 
         </div>
     </main>
 
-    <!-- Footer with Clear Social Media Labels -->
-    <footer class="bg-white border-t border-slate-200 pt-10 pb-6 mt-auto">
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-darkCard border-t border-slate-200 dark:border-slate-800 pt-10 pb-6 mt-auto transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-xl font-header text-slate-800 mb-8">Connect with Me</h2>
+            <h2 class="text-xl font-header text-slate-800 dark:text-white mb-8">Connect with Me</h2>
             
             <div class="flex justify-center gap-8 mb-10 flex-wrap">
-                
                 <!-- Telegram Channel -->
                 <a href="https://t.me/nangweb" target="_blank" class="group flex flex-col items-center gap-2 text-slate-400 hover:text-blue-500 transition">
-                    <div class="p-3.5 bg-slate-50 rounded-full group-hover:bg-blue-50 transition shadow-sm border border-slate-100 group-hover:scale-110">
+                    <div class="p-3.5 bg-slate-50 dark:bg-slate-800 rounded-full group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition shadow-sm border border-slate-100 dark:border-slate-700 group-hover:scale-110">
                         <i data-lucide="megaphone" class="w-6 h-6"></i>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-sm font-bold text-slate-600 group-hover:text-blue-600">Telegram</span>
-                        <span class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Channel</span>
+                        <span class="text-sm font-bold text-slate-600 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">Telegram</span>
+                        <span class="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">Channel</span>
                     </div>
                 </a>
 
                 <!-- Telegram Personal -->
-                <a href="https://t.me/hunsamnang" target="_blank" class="group flex flex-col items-center gap-2 text-slate-400 hover:text-blue-400 transition">
-                    <div class="p-3.5 bg-slate-50 rounded-full group-hover:bg-blue-50 transition shadow-sm border border-slate-100 group-hover:scale-110">
+                <a href="https://t.me/hunsamnang" target="_blank" class="group flex flex-col items-center gap-2 text-slate-400 hover:text-sky-500 transition">
+                    <div class="p-3.5 bg-slate-50 dark:bg-slate-800 rounded-full group-hover:bg-sky-50 dark:group-hover:bg-sky-900/30 transition shadow-sm border border-slate-100 dark:border-slate-700 group-hover:scale-110">
                         <i data-lucide="send" class="w-6 h-6"></i>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-sm font-bold text-slate-600 group-hover:text-blue-500">Telegram</span>
-                        <span class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Profile</span>
+                        <span class="text-sm font-bold text-slate-600 dark:text-slate-300 group-hover:text-sky-500 dark:group-hover:text-sky-400">Telegram</span>
+                        <span class="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">Profile</span>
                     </div>
                 </a>
 
                 <!-- Facebook Page -->
-                <a href="https://www.facebook.com/share/1DnsafSPaJ/?mibextid=wwXIfr" target="_blank" class="group flex flex-col items-center gap-2 text-slate-400 hover:text-blue-700 transition">
-                    <div class="p-3.5 bg-slate-50 rounded-full group-hover:bg-blue-50 transition shadow-sm border border-slate-100 group-hover:scale-110">
+                <a href="https://www.facebook.com/share/1DnsafSPaJ/?mibextid=wwXIfr" target="_blank" class="group flex flex-col items-center gap-2 text-slate-400 hover:text-indigo-600 transition">
+                    <div class="p-3.5 bg-slate-50 dark:bg-slate-800 rounded-full group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/30 transition shadow-sm border border-slate-100 dark:border-slate-700 group-hover:scale-110">
                         <i data-lucide="facebook" class="w-6 h-6"></i>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-sm font-bold text-slate-600 group-hover:text-blue-700">Facebook</span>
-                        <span class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Page</span>
+                        <span class="text-sm font-bold text-slate-600 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">Facebook</span>
+                        <span class="text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">Profile</span>
                     </div>
                 </a>
-
-                <!-- TikTok Profile -->
-                <a href="https://www.tiktok.com/@hunsamnang423" target="_blank" class="group flex flex-col items-center gap-2 text-slate-400 hover:text-black transition">
-                    <div class="p-3.5 bg-slate-50 rounded-full group-hover:bg-gray-100 transition shadow-sm border border-slate-100 group-hover:scale-110">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 1 0 1 13.6 6.84 6.84 0 0 0 6.82-6.85V7.97a10.32 10.32 0 0 0 4.22-.44l-.22-3.41z"/></svg>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-sm font-bold text-slate-600 group-hover:text-black">TikTok</span>
-                        <span class="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Profile</span>
-                    </div>
-                </a>
-
             </div>
 
-            <div class="border-t border-slate-100 pt-6">
-                <p class="text-xs text-slate-400 font-medium">© 2026 Developed by <span class="font-bold text-blue-600">Hun Samnang</span></p>
+            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                <p class="text-xs text-slate-400 dark:text-slate-500 font-medium">© 2026 Developed by <span class="font-bold text-blue-600 dark:text-blue-400">Hun Samnang</span></p>
             </div>
         </div>
     </footer>
 
     <!-- WELCOME MODAL -->
     <div id="welcome-modal" class="modal">
-        <div class="bg-white w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl relative transform transition-all scale-100 animate-pop-in">
+        <div class="bg-white dark:bg-darkCard w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl relative transform transition-all scale-100 animate-pop-in border border-slate-100 dark:border-slate-700">
             <!-- Header -->
             <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center text-white">
                 <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-md shadow-inner border border-white/20">
                     <i data-lucide="sparkles" class="w-8 h-8 text-white"></i>
                 </div>
                 <h3 class="text-2xl font-header text-white mb-1">ស្វាគមន៍!</h3>
-                <p class="text-xs text-blue-100 opacity-90">Khmer Tools Portal</p>
+                <p class="text-xs text-blue-100 opacity-90 font-sans">មានទាំងអស់នៅនៀក!</p>
             </div>
             
             <!-- Body -->
             <div class="p-8">
-                <p class="text-slate-600 text-sm text-center mb-6 leading-relaxed">
+                <p class="text-slate-600 dark:text-slate-300 text-sm text-center mb-6 leading-relaxed font-medium">
                     នេះគឺជាបណ្ណាល័យដែលប្រមូលផ្តុំនូវឧបករណ៍ឌីជីថលសម្រាប់ជួយសម្រួលការងារប្រចាំថ្ងៃរបស់អ្នក
                 </p>
-                <ul class="space-y-4 text-sm text-slate-600 mb-8">
-                    <li class="flex items-start gap-3">
-                        <div class="bg-green-100 p-1.5 rounded-full text-green-600 mt-0.5 shrink-0"><i data-lucide="check" class="w-3 h-3"></i></div>
-                        <span>ជ្រើសរើសកម្មវិធីដែលអ្នកចង់ប្រើនៅខាងក្រោម</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <div class="bg-blue-100 p-1.5 rounded-full text-blue-600 mt-0.5 shrink-0"><i data-lucide="check" class="w-3 h-3"></i></div>
-                        <span>អាចទាក់ទងខ្ញុំបានតាមរយៈ Social Media នៅខាងក្រោមបំផុត</span>
-                    </li>
-                </ul>
                 <button onclick="closeModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-xl font-bold transition shadow-lg shadow-blue-500/30 active:scale-95 flex items-center justify-center gap-2">
-                    ចាប់ផ្តើមប្រើប្រាស់ <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    ចាប់ផ្តើម <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
             </div>
         </div>
@@ -350,8 +346,31 @@
     <script>
         lucide.createIcons();
 
-        // Check if user visited before
+        // Theme Toggle
+        let isDark = localStorage.getItem('theme') === 'dark';
+        const htmlElement = document.documentElement;
+
+        function toggleTheme() {
+            isDark = !isDark;
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            applyTheme();
+        }
+
+        function applyTheme() {
+            const icon = document.getElementById('theme-icon');
+            if (isDark) {
+                htmlElement.classList.add('dark');
+                if(icon) icon.setAttribute('data-lucide', 'sun');
+            } else {
+                htmlElement.classList.remove('dark');
+                if(icon) icon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        }
+
+        // Welcome Modal
         window.addEventListener('DOMContentLoaded', () => {
+            applyTheme();
             const hasVisited = localStorage.getItem('hasVisitedKhmerTools');
             if (!hasVisited) {
                 setTimeout(() => {
