@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khmer Tools - By Hun Samnang</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;600;700&family=Moul&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Kantumruy Pro"', 'sans-serif'],
+                        header: ['"Moul"', 'cursive'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Kantumruy Pro', sans-serif; 
+            background-color: #F8FAFC;
+            background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 1.5rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
+
+        .card-image-wrapper {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+            background-color: #f1f5f9;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .tool-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 p-2 rounded-xl text-white shadow-lg shadow-blue-200">
+                    <i data-lucide="layout-grid" class="w-6 h-6"></i>
+                </div>
+                <h1 class="text-xl font-header text-slate-800 pt-1">Khmer<span class="text-blue-600">Tools</span></h1>
+            </div>
+            
+            <a href="https://t.me/hunsamnang" target="_blank" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-600 px-4 py-2 rounded-full text-xs font-bold transition">
+                <i data-lucide="message-circle" class="w-4 h-4"></i> ទាក់ទង
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="pt-16 pb-12 text-center px-4">
+        <div class="inline-block p-1 px-3 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-bold mb-4 animate-fade-in">
+            🚀 Developed by Hun Samnang
+        </div>
+        <h1 class="text-4xl md:text-5xl font-header text-slate-900 mb-4 animate-fade-in" style="animation-delay: 0.1s;">
+            ឧបករណ៍ឌីជីថល
+        </h1>
+        <p class="text-slate-500 max-w-xl mx-auto text-lg leading-relaxed animate-fade-in" style="animation-delay: 0.2s;">
+            ប្រមូលផ្តុំកម្មវិធីដែលមានប្រយោជន៍សម្រាប់ជួយសម្រួលការងារប្រចាំថ្ងៃរបស់អ្នក
+        </p>
+    </header>
+
+    <!-- Tools Grid -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 pb-20 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- 1. Salary Calculator V2 -->
+            <a href="https://hunsamnang423.github.io/salary-calculatorV2/" target="_blank" class="tool-card group animate-fade-in" style="animation-delay: 0.3s;">
+                <div class="card-image-wrapper">
+                    <!-- Image: Calculator / Money -->
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800" alt="Salary Calc" class="card-image">
+                    <div class="image-overlay"></div>
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-green-700 shadow-sm">
+                        Finance
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-green-100 rounded-lg text-green-600">
+                            <i data-lucide="banknote" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Salary Calculator V2</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">
+                        គណនាប្រាក់ខែ និងចំណូលចំណាយប្រចាំខែ
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                        <span class="text-xs font-medium text-slate-400">Version 5.0</span>
+                        <span class="flex items-center gap-1 text-green-600 text-sm font-bold group-hover:gap-2 transition-all">
+                            បើកកម្មវិធី <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 2. OT Summary -->
+            <a href="https://hunsamnang423.github.io/OTSUMARY/" target="_blank" class="tool-card group animate-fade-in" style="animation-delay: 0.4s;">
+                <div class="card-image-wrapper">
+                    <!-- Image: Clock / Time -->
+                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=800" alt="OT Summary" class="card-image">
+                    <div class="image-overlay"></div>
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-orange-600 shadow-sm">
+                        Productivity
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-orange-100 rounded-lg text-orange-500">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Smart OT Summary</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">
+                        បូកសរុបម៉ោងបន្ថែម (OT) និងគណនាលុយបាយដោយស្វ័យប្រវត្តិ
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                        <span class="text-xs font-medium text-slate-400">Utility</span>
+                        <span class="flex items-center gap-1 text-orange-500 text-sm font-bold group-hover:gap-2 transition-all">
+                            បើកកម្មវិធី <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 3. Image Splitter -->
+            <a href="https://hunsamnang423.github.io/ImageSplitter/" target="_blank" class="tool-card group animate-fade-in" style="animation-delay: 0.5s;">
+                <div class="card-image-wrapper">
+                    <!-- Image: Photography / Grid -->
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Image Splitter" class="card-image">
+                    <div class="image-overlay"></div>
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-purple-600 shadow-sm">
+                        Design Tool
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-purple-100 rounded-lg text-purple-600">
+                            <i data-lucide="scissors" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800">Image Splitter</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">
+                        កាត់រូបភាពធំៗទៅជារូបតូចៗ (Grid) សម្រាប់បង្ហោះលើបណ្តាញសង្គម
+                    </p>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                        <span class="text-xs font-medium text-slate-400">v2.0</span>
+                        <span class="flex items-center gap-1 text-purple-600 text-sm font-bold group-hover:gap-2 transition-all">
+                            បើកកម្មវិធី <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+             <!-- Coming Soon -->
+             <div class="tool-card border-2 border-dashed border-slate-200 bg-slate-50/50 p-6 flex flex-col items-center justify-center text-center opacity-70 hover:opacity-100 transition animate-fade-in" style="animation-delay: 0.6s;">
+                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-slate-300 mb-4 shadow-sm">
+                    <i data-lucide="plus" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-400 mb-2">Coming Soon</h3>
+                <p class="text-xs text-slate-400">នឹងមានកម្មវិធីថ្មីៗបន្ថែមទៀត</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 text-center mt-auto">
+        <p class="text-sm text-slate-500 font-medium">© 2026 Developed by <span class="font-bold text-blue-600">Hun Samnang</span></p>
+        <div class="flex justify-center gap-6 mt-4 opacity-60">
+            <a href="#" class="hover:text-blue-600 transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+            <a href="#" class="hover:text-blue-400 transition"><i data-lucide="send" class="w-5 h-5"></i></a>
+            <a href="#" class="hover:text-pink-500 transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+
+
